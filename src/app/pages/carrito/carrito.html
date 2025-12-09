@@ -1,0 +1,52 @@
+<div class="pagina-carrito" *ngIf="items.length === 0; else carritoLleno">
+  <div class="carrito-vacio">
+    <div class="icono-bolsa"></div>
+    <h2>Tu carrito está vacío</h2>
+    <p>Agrega productos para comenzar tu compra</p>
+    <button routerLink="/products" class="btn-explorar">Explorar Productos</button>
+  </div>
+</div>
+
+<ng-template #carritoLleno>
+  <div class="pagina-carrito">
+    <section class="contenido-carrito">
+      <h2>Carrito de Compras</h2>
+
+      <div class="lista-items">
+        <div class="item" *ngFor="let item of items">
+          <div class="info-item">
+            <h3>{{ item.producto.nombre }}</h3>
+            <span class="marca">{{ item.producto.marca }}</span>
+            <span class="precio-unitario">\${{ item.producto.precio | number:'1.2-2' }} c/u</span>
+          </div>
+          <div class="detalle-item">
+            <span>Cant: {{ item.cantidad }}</span>
+            <span class="total-item">
+              \${{ (item.producto.precio * item.cantidad) | number:'1.2-2' }}
+            </span>
+            <button class="btn-eliminar" (click)="eliminarItem(item.producto.id)">X</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="resumen">
+      <h3>Resumen del Pedido</h3>
+      <div class="fila">
+        <span>Subtotal:</span>
+        <span>\${{ subtotal | number:'1.2-2' }}</span>
+      </div>
+      <div class="fila">
+        <span>Envío:</span>
+        <span>\${{ envio | number:'1.2-2' }}</span>
+      </div>
+      <div class="fila total">
+        <span>Total:</span>
+        <span>\${{ total | number:'1.2-2' }}</span>
+      </div>
+
+      <button class="btn-principal">Proceder al Pago</button>
+      <button class="btn-secundario" routerLink="/productos">Continuar Comprando</button>
+    </aside>
+  </div>
+</ng-template>

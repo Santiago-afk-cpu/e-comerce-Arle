@@ -1,0 +1,73 @@
+<div class="fondo">
+        <div class="contenido">
+            <div class="logo">
+            <img src="assets/logo.png" alt="logo">
+            </div>
+
+            <h2>Bienvenido a Futstore</h2>
+            <p class="ppp">Accede a tu cuenta o crea una nueva</p>
+
+            <div class="logica">
+            <button 
+                [class.active]="mode === 'login'"
+                (click)="setMode('login')"
+            >
+                Iniciar Sesión
+            </button>
+
+            <button 
+                [class.active]="mode === 'register'"
+                (click)="setMode('register')"
+            >
+                Registrarse
+            </button>
+            </div>
+
+            <form *ngIf="mode === 'login'" class="formulario">
+
+            <label>Email</label>
+            <input type="email" placeholder="tu@email.com">
+
+            <label>Contraseña</label>
+            <input type="password" placeholder="********">
+
+            <div class="recordarme">
+                <label>
+                <input type="checkbox"> Recuérdame
+                </label>
+                <a href="#" class="verde">¿Olvidaste tu contraseña?</a>
+            </div>
+
+            <button class="boton">Iniciar Sesión</button>
+
+            <div class="divisor"><span>o continuar con</span></div>
+
+            <div class="social">
+                <button class="google"><img src="" alt=""> Google</button>
+                <button class="facebook"><img src="" alt=""> Facebook</button>
+            </div>
+
+            </form>
+
+            <form *ngIf="mode === 'register'" class="formulario">
+
+            <label>Nombre Completo</label>
+            <input type="text" placeholder="Juan Pérez">
+
+            <label>Email</label>
+            <input type="email" placeholder="tu@email.com">
+
+            <label>Contraseña</label>
+            <input type="password" placeholder="********">
+
+            <label class="terminos">
+                <input type="checkbox">
+                <p>Acepto los <span><a href="">términos y condiciones</a></span>y la <span><a href="">política de privacidad</a></span></p>
+            </label>
+
+            <button class="boton ">Crear Cuenta</button>
+
+            </form>
+
+        </div>
+</div>

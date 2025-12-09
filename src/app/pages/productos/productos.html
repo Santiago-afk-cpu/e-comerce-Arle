@@ -1,0 +1,53 @@
+<div class="pagina-productos">
+  <aside class="panel-filtros">
+    <h3>FILTROS</h3>
+
+    <div class="grupo-filtro">
+      <span class="titulo-filtro">CATEGORÍA</span>
+      <ul>
+        <li 
+          *ngFor="let cat of categorias"
+          [class.activo]="filtroCategoria === cat"
+          (click)="cambiarCategoria(cat)">
+          {{ cat }}
+        </li>
+      </ul>
+    </div>
+
+    <div class="grupo-filtro">
+      <span class="titulo-filtro">MARCA</span>
+      <ul>
+        <li 
+          *ngFor="let marca of marcas"
+          [class.activo]="filtroMarca === marca"
+          (click)="cambiarMarca(marca)">
+          {{ marca }}
+        </li>
+      </ul>
+    </div>
+  </aside>
+
+  <section class="listado-productos">
+    <header class="encabezado-productos">
+      <h2>Accesorios de Fútbol</h2>
+      <p>Encuentra el equipamiento perfecto para tu juego</p>
+      <span class="resultado">{{ productosFiltrados.length }} de {{ productosOriginal.length }} productos</span>
+    </header>
+
+    <div class="grid-productos">
+      <article class="card-producto" *ngFor="let producto of productosFiltrados">
+        <img class="imagen-producto" [src]="'assets/img/' + producto.imagen" alt="{{ producto.nombre }}">
+        <div class="contenido-card">
+          <span class="marca">{{ producto.marca }}</span>
+          <span class="categoria">{{ producto.categoria.toUpperCase() }}</span>
+          <h3 class="nombre">{{ producto.nombre }}</h3>
+          <p class="descripcion">{{ producto.descripcion }}</p>
+        </div>
+        <div class="pie-card">
+          <span class="precio">${{ producto.precio | number:'1.2-2' }}</span>
+          <button class="btn-agregar" (click)="agregarAlCarrito(producto)">Agregar</button>
+        </div>
+      </article>
+    </div>
+  </section>
+</div>

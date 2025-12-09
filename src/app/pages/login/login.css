@@ -1,0 +1,156 @@
+.fondo {
+  background-image: url("/assets/estadio.png");
+  background-size: cover;
+  background-position: center;
+  height: 130vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.5);
+}
+
+.contenido {
+  width: 380px;
+  background: #ffffffee;
+  border-radius: 12px;
+  padding: 35px;
+  text-align: center;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+}
+
+.logo img {
+  width: 70px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+}
+
+h2 {
+  font-weight: 600;
+  font-size: 21px;
+  margin-bottom: 20px;
+}
+
+.ppp {
+  margin-top: -5px;
+  color: #666;
+  margin-bottom: 40px;
+  font-size: 13px;
+
+}
+
+.logica {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.logica button {
+  padding: 6px 25px;
+  background: #ffffff;
+  border: 1px solid #dcdcdc;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.logica button.active {
+  background: #fff;
+  border: 2px solid #34ff85;
+}
+
+.formulario {
+  text-align: left;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  margin-top: 12px;
+  color: #333;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 4px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: #f9f9f9;
+}
+
+.recordarme {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.verde {
+  color: #10c055;
+  text-decoration: none;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.boton {
+  width: 100%;
+  background: #10c055;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  margin-top: 20px;
+  cursor: pointer;
+}
+.boton:hover{
+  background-color: #016529;
+  transition: 0.6s;
+}
+
+.divisor {
+  width: 100%;
+  height: 1px;
+  background: #ddd;
+  margin: 30px 0 25px 0;
+  color: #666;
+  font-size: 13px;
+  text-align: center;
+}
+
+.divisor span {
+  background: #fff;      
+  padding: 0 15px;
+  position: relative;
+  z-index: 2;
+
+}
+
+/* SOCIAL BUTTONS */
+.social {
+  display: flex;
+  justify-content: space-between;
+}
+
+.social button {
+  width: 48%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.terminos {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+.terminos p{
+  font-size: 13px;
+  color: #666;
+}
+.terminos span a{
+  color: #10c055;
+  text-decoration: none;
+}

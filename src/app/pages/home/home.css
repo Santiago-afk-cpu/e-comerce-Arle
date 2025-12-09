@@ -1,0 +1,215 @@
+.contenidoprincipal {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  background: url("/assets/estadio.png") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.42);
+}
+
+.degradadoprincipal {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.562);
+}
+
+.primercontenido {
+  position: relative;
+  text-align: center;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;  
+}
+
+.primercontenido h1 {
+  font-size: 42px;
+  font-weight: 700;
+}
+
+.primercontenido pre {
+  margin-top: 12px;
+  font-size: 16px;
+  opacity: 0.9;
+  transform: rotate(#00c853 0.05deg );
+}
+
+.botonprimario {
+  margin-top: 20px;
+  background: #28a745;
+  border: none;
+  padding: 12px 28px;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+
+.linea-verde {
+  width: 100%;
+  height: 7px;      
+  background-color: #00c853; 
+}
+
+.accesorios {
+  padding: 60px 80px;
+  text-align: center;
+}
+.accesorios h1 {
+  font-size: 28px;
+  font-weight: 700;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.subtitulo {
+  margin-top: 6px;
+  font-size: 17px;
+  color: #777;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.productos {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+.producto {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0px 3px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: 0.2s;
+}
+
+.producto:hover {
+  transform: translateY(-4px);
+}
+
+.producto-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.conteproducto {
+  padding: 15px;
+  text-align: left;
+}
+
+.tituloconte {
+  font-size: 12px;
+  font-weight: bold;
+  color: #00c853;
+}
+
+.conteproducto h3 {
+  margin: 6px 0;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.conteproducto p {
+  font-size: 14px;
+  color: #666;
+  height: 45px;
+}
+
+.conteproducto strong {
+  font-size: 16px;
+}
+
+.boton-carrito {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  background: #28a745;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.vermas{
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 20px;
+  color: #28a745;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.patrocinio {
+  padding: 70px 40px;
+  text-align: center;
+  background: #fafafa;
+}
+.patrocinio h2 {
+  font-size: 28px;
+  font-weight: 700;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 10px;
+}   
+
+.patrocinio p {
+  font-size: 17px;
+  color: #777;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.patrocinio-grid {
+  margin-top: 30px;
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+.patrocinadores:hover{
+    transform: translateY(-1px);
+    box-shadow: 0px 10px 20px rgba(0,0,0,0.1);
+    transition: 0.6s;
+}
+
+.patrocinadores {
+  padding: 20px 80px;
+  border: 2px solid #e2e2e2;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.benefits {
+  padding: 60px;
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+}
+
+.benefit {
+  text-align: center;
+}
+
+.benefit .envio{
+  width: 60px;
+  margin-bottom: 15px;
+  border-radius: 50%;
+}
+.benefit .pro{
+  width: 60px;
+  height: 60px;
+  margin-bottom: 15px;
+  border-radius: 50%;
+}
+.benefit .devolu{
+  width: 60px;
+  height: 60px;
+  margin-bottom: 15px;
+  border-radius: 50%;
+}
+
+.benefit p {
+  color: #777;
+  margin: 10px;
+}
