@@ -3,7 +3,7 @@ export interface ProductoModule {
   nombre: string;
   descripcion: string;
   precio: number;
-  categoria: 'Balones' | 'Calzado' | 'Camisetas' | 'Accesorios' | 'Protección';
-  marca: 'Nike' | 'Adidas' | 'Puma';
+  categoria: string;
+  marca: string;
   imagen: string;
 }

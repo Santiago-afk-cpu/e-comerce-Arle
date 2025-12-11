@@ -95,3 +95,27 @@
   width: 40px;
   height: 40px;
 }
+
+.usuario-logueado {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #343a40;
+  font-weight: bold;
+}
+
+.logout-btn {
+  background-color: #444b52; /* azul vivo */
+  border: none;              /* quitar borde */
+  color: #fff;               /* texto blanco */
+  padding: 6px 12px;         /* un poco más grande */
+  border-radius: 6px;        /* esquinas redondeadas */
+  cursor: pointer;
+  font-weight: 500;          /* texto un poco más grueso */
+  transition: background 0.3s ease; /* efecto suave al pasar el mouse */
+}
+
+.logout-btn:hover {
+  background-color: #8e9092; /* azul más oscuro al pasar el mouse */
+}
+

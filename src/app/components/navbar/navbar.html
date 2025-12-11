@@ -13,7 +13,21 @@
   </div>
 
   <div class="tercer-contenido">
-    <a routerLink="/login" class="icon-btn"><img src="assets/login.png" alt=""></a>
-    <a routerLink="/carrito" class="icon-btn"><img src="assets/carrito.png" alt=""></a>
+
+    <!-- SI NO está autenticado -->
+    <a *ngIf="(authService.user$ | async) === null" routerLink="/login" class="icon-btn">
+      <img src="assets/login.png" alt="">
+    </a>
+
+    <!-- SI SÍ está autenticado -->
+    <div *ngIf="(authService.user$ | async) as user" class="usuario-logueado">
+      <i class="fa-solid fa-user"></i> {{ user.name }}
+      <button class="logout-btn" (click)="logout()">Salir</button>
+    </div>
+
+    <a routerLink="/carrito" class="icon-btn">
+      <img src="assets/carrito.png" alt="">
+    </a>
+
   </div>
 </nav>

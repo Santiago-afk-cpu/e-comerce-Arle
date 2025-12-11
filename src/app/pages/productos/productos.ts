@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { ProductoModule } from '../../module/producto.module';
-import { CarritoService } from '../../service/carrito.service';
-import { ProductosService } from '../../service/productos.service';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ProductosService } from '../../service/productos.service';
+import { CarritoService } from '../../service/carrito.service';
+import { ProductoModule } from '../../module/producto.module';
 
 @Component({
   selector: 'app-accesorios',
@@ -10,8 +10,9 @@ import { CommonModule } from '@angular/common';
   templateUrl: './productos.html',
   styleUrls: ['./productos.css']
 })
-export class productos {
-   productosOriginal: ProductoModule[] = [];
+export class Productos implements OnInit {
+
+  productosOriginal: ProductoModule[] = [];
   productosFiltrados: ProductoModule[] = [];
 
   categorias: string[] = ['Todos', 'Balones', 'Calzado', 'Camisetas', 'Accesorios', 'Protección'];
@@ -26,8 +27,11 @@ export class productos {
   ) {}
 
   ngOnInit(): void {
-    this.productosOriginal = this.productosService.obtenerTodos();
-    this.aplicarFiltros();
+    // Suscribirse al Observable para obtener los productos desde el backend
+    this.productosService.obtenerTodos().subscribe((data: ProductoModule[]) => {
+      this.productosOriginal = data;
+      this.aplicarFiltros();
+    });
   }
 
   aplicarFiltros(): void {

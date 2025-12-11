@@ -28,6 +28,19 @@
           </div>
         </div>
       </div>
+
+      <!-- Formulario de dirección -->
+      <div *ngIf="mostrarFormulario" class="form-envio">
+      <input type="text" [(ngModel)]="direccion" placeholder="Dirección de envío"/>
+      <button class="btn-enviar-pedido" (click)="enviarPedido()">Enviar Pedido</button>
+    </div>
+
+      <div *ngIf="mensajeNoRegistrado" class="mensaje-no-registrado">
+        {{ mensajeNoRegistrado }}
+      </div>
+
+      <button *ngIf="!mostrarFormulario" class="btn-principal" (click)="abrirFormulario()">Proceder al Pago</button>
+      <button class="btn-secundario" routerLink="/products">Continuar Comprando</button>
     </section>
 
     <aside class="resumen">
@@ -44,9 +57,6 @@
         <span>Total:</span>
         <span>\${{ total | number:'1.2-2' }}</span>
       </div>
-
-      <button class="btn-principal">Proceder al Pago</button>
-      <button class="btn-secundario" routerLink="/productos">Continuar Comprando</button>
     </aside>
   </div>
 </ng-template>

@@ -9,7 +9,7 @@ export const routes: Routes = [
   {
     path: 'products',
     loadComponent: () =>
-      import('./pages/productos/productos').then(m => m.productos)
+      import('./pages/productos/productos').then(m => m.Productos)
   },
   {
     path: 'contact',

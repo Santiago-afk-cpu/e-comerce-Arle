@@ -26,10 +26,10 @@
             <form *ngIf="mode === 'login'" class="formulario">
 
             <label>Email</label>
-            <input type="email" placeholder="tu@email.com">
+            <input type="email" placeholder="tu@email.com" [(ngModel)]="email" name="email">
 
             <label>Contraseña</label>
-            <input type="password" placeholder="********">
+            <input type="password" placeholder="********" [(ngModel)]="password" name="password">
 
             <div class="recordarme">
                 <label>
@@ -38,7 +38,7 @@
                 <a href="#" class="verde">¿Olvidaste tu contraseña?</a>
             </div>
 
-            <button class="boton">Iniciar Sesión</button>
+            <button class="boton" (click)="login()">Iniciar Sesión</button>
 
             <div class="divisor"><span>o continuar con</span></div>
 
@@ -52,20 +52,29 @@
             <form *ngIf="mode === 'register'" class="formulario">
 
             <label>Nombre Completo</label>
-            <input type="text" placeholder="Juan Pérez">
+            <input type="text" placeholder="Juan Pérez" [(ngModel)]="name" name="name">
 
             <label>Email</label>
-            <input type="email" placeholder="tu@email.com">
+            <input type="email" placeholder="tu@email.com" [(ngModel)]="email" name="email">
 
             <label>Contraseña</label>
-            <input type="password" placeholder="********">
+            <input type="password" placeholder="********" [(ngModel)]="password" name="password">
 
             <label class="terminos">
                 <input type="checkbox">
                 <p>Acepto los <span><a href="">términos y condiciones</a></span>y la <span><a href="">política de privacidad</a></span></p>
             </label>
 
-            <button class="boton ">Crear Cuenta</button>
+            <div *ngIf="mensajeRegistro" class="mensaje-registro">
+                {{ mensajeRegistro }}
+            </div>
+
+            <button 
+                class="boton" 
+                (click)="register()">
+                Crear Cuenta
+            </button>
+
 
             </form>
 

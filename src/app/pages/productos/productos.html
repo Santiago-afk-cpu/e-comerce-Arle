@@ -36,7 +36,7 @@
 
     <div class="grid-productos">
       <article class="card-producto" *ngFor="let producto of productosFiltrados">
-        <img class="imagen-producto" [src]="'assets/img/' + producto.imagen" alt="{{ producto.nombre }}">
+        <img class="imagen-producto" [src]="'../../../assets/' + producto.imagen" alt="{{ producto.nombre }}">
         <div class="contenido-card">
           <span class="marca">{{ producto.marca }}</span>
           <span class="categoria">{{ producto.categoria.toUpperCase() }}</span>
