@@ -3,54 +3,75 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NgForm } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule],   // 👈 AQUI ESTA LA SOLUCIÓN
+  imports: [CommonModule, FormsModule], 
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
 export class Login {
 
-  mensajeRegistro: string = '';
+  mensajeError: string = '';
   mode: 'login' | 'register' = 'login';
   name = '';
   email = '';
   password = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService,
+    private router: Router,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   setMode(m: 'login' | 'register') {
     this.mode = m;
   }
 
-  login() {
-    this.authService.login(this.email, this.password).subscribe({
+  login(form: NgForm): void {
+
+    if (form.invalid){
+      return;
+    }
+
+    const data = form.value;
+
+    this.authService.login(data).subscribe({
       next: (res: any) => {
-        console.log("Respuesta del backend:", res); // opcional para debug
-        this.authService.setUser(res.user); // ⚡ solo guardar el user
-        this.router.navigate(['/']); // redirige al home
+        console.log(res); 
+        this.authService.setUser(res.user);
+        this.authService.setToken(res.token); 
+        this.router.navigate(['/']); 
       },
-      error: () => alert("Credenciales incorrectas")
+      error: (err: HttpErrorResponse) => {
+        console.error(err);
+        this.mensajeError = "Las credenciales no coinciden";
+        this.cdr.detectChanges();
+      }
     });
   }
 
 
-  register() {
-    this.mensajeRegistro = '';
-    this.authService.register(this.name, this.email, this.password).subscribe({
-      next: (res: any) => {
+  register(form: NgForm): void {
 
-        this.name = '';
-        this.email = '';
-        this.password = '';
+    if (form.invalid) {
+      return;
+    }
+
+    const data = form.value;
+
+    this.authService.register(data).subscribe({
+      next: () => {
+
+        form.resetForm();
 
         this.mode = 'login';
       },
-      error: (err) => {
+      error: (err: HttpErrorResponse) => {
         console.error(err);
-        this.mensajeRegistro = err.error.message || "Hubo un error al registrarse";
       }
     });
   }

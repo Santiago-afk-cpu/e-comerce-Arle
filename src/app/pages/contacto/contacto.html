@@ -16,18 +16,20 @@
         <span>Envíanos un Mensaje</span>
       </div>
 
-      <form (ngSubmit)="enviarMensaje()" #formContacto="ngForm">
+      <form (ngSubmit)="enviarMensaje(formContacto)" #formContacto="ngForm">
         <div class="row">
-          <input type="text" placeholder="Nombre Completo *" required [(ngModel)]="nombre" name="nombre">
-          <input type="email" placeholder="Email *" required [(ngModel)]="email" name="email">
+          <input type="text" placeholder="Nombre Completo *" required name="nombre" ngModel>
+          <input type="email" placeholder="Email *" required name="email" ngModel>
         </div>
 
         <div class="row">
-          <input type="text" placeholder="Teléfono" [(ngModel)]="telefono" name="telefono">
-          <input type="text" placeholder="Asunto *" required [(ngModel)]="asunto" name="asunto">
+          <input type="text" placeholder="Teléfono" required name="telefono" ngModel>
+          <input type="text" placeholder="Asunto *" required name="asunto" ngModel>
         </div>
 
-        <textarea placeholder="Escribe tu mensaje aquí..." rows="5" required [(ngModel)]="mensaje" name="mensaje"></textarea>
+        <textarea placeholder="Escribe tu mensaje aquí..." rows="5" required name="mensaje" ngModel></textarea>
+
+        <p *ngIf="mensajeError" class="mensaje-error">{{ mensajeError }}</p>
 
         <button type="submit" class="btn">Enviar Mensaje</button>
       </form>

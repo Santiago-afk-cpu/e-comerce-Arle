@@ -23,22 +23,24 @@
             </button>
             </div>
 
-            <form *ngIf="mode === 'login'" class="formulario">
+            <form *ngIf="mode === 'login'" class="formulario" (ngSubmit)="login(formLogin)" #formLogin="ngForm">
 
             <label>Email</label>
-            <input type="email" placeholder="tu@email.com" [(ngModel)]="email" name="email">
+            <input type="email" placeholder="tu@email.com" ngModel name="email" required>
 
             <label>Contraseña</label>
-            <input type="password" placeholder="********" [(ngModel)]="password" name="password">
+            <input type="password" placeholder="********" ngModel name="password" required>
 
             <div class="recordarme">
                 <label>
-                <input type="checkbox"> Recuérdame
+                <input type="checkbox" ngModel name="recordar"> Recuérdame
                 </label>
-                <a href="#" class="verde">¿Olvidaste tu contraseña?</a>
+                <a href="/login" class="verde">¿Olvidaste tu contraseña?</a>
             </div>
 
-            <button class="boton" (click)="login()">Iniciar Sesión</button>
+            <p *ngIf="mensajeError" class="mensaje-error-login">{{ mensajeError }}</p>
+
+            <button class="boton" type="submit">Iniciar Sesión</button>
 
             <div class="divisor"><span>o continuar con</span></div>
 
@@ -49,33 +51,34 @@
 
             </form>
 
-            <form *ngIf="mode === 'register'" class="formulario">
+            <form *ngIf="mode === 'register'" class="formulario" (ngSubmit)="register(formRegister)" #formRegister="ngForm">
+                <label>Nombre Completo</label>
+                <input type="text" placeholder="Juan Pérez" ngModel required name="name">
 
-            <label>Nombre Completo</label>
-            <input type="text" placeholder="Juan Pérez" [(ngModel)]="name" name="name">
+                <label>Email</label>
+                <input type="email" placeholder="tu@email.com" ngModel required name="email">
 
-            <label>Email</label>
-            <input type="email" placeholder="tu@email.com" [(ngModel)]="email" name="email">
+                <label>Contraseña</label>
+                <input type="password" placeholder="********" ngModel required name="password">
 
-            <label>Contraseña</label>
-            <input type="password" placeholder="********" [(ngModel)]="password" name="password">
+                <label class="terminos">
+                    <input type="checkbox" name="terminos" ngModel required>
+                    <p>Acepto los <span><a href="">términos y condiciones</a></span>y la <span><a href="">política de privacidad</a></span></p>
+                </label>
 
-            <label class="terminos">
-                <input type="checkbox">
-                <p>Acepto los <span><a href="">términos y condiciones</a></span>y la <span><a href="">política de privacidad</a></span></p>
-            </label>
+                <p
+                    class="mensaje-error"
+                    *ngIf="
+                    formRegister.submitted &&
+                    formRegister.controls['terminos']?.invalid
+                    "
+                >
+                    Debes aceptar los términos y condiciones
+                </p>
 
-            <div *ngIf="mensajeRegistro" class="mensaje-registro">
-                {{ mensajeRegistro }}
-            </div>
-
-            <button 
-                class="boton" 
-                (click)="register()">
-                Crear Cuenta
-            </button>
-
-
+                <button type="submit" class="boton">
+                    Crear Cuenta
+                </button>
             </form>
 
         </div>

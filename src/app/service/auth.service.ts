@@ -21,21 +21,21 @@ export class AuthService {
     this.loadUserFromStorage();
   }
 
-  // 🔥 LOGIN
-  login(email: string, password: string) {
-    return this.http.post(`${this.apiUrl}/login`, { email, password });
+  login(data: any) {
+    return this.http.post(`${this.apiUrl}/login`, data);
   }
 
-  // 🔥 REGISTER (lo que te faltaba)
-  register(name: string, email: string, password: string) {
-    const data = { name, email, password };
+  register(data: any) {
     return this.http.post(`${this.apiUrl}/register`, data);
   }
 
-  // 🔥 Guardar usuario
   setUser(user: any) {
     this.userSubject.next(user);
     localStorage.setItem("user", JSON.stringify(user));
+  }
+
+  setToken(token: string) {
+    localStorage.setItem('token', token);
   }
 
   loadUserFromStorage() {

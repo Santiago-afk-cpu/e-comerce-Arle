@@ -29,14 +29,16 @@
         </div>
       </div>
 
-      <!-- Formulario de dirección -->
-      <div *ngIf="mostrarFormulario" class="form-envio">
-      <input type="text" [(ngModel)]="direccion" placeholder="Dirección de envío"/>
-      <button class="btn-enviar-pedido" (click)="enviarPedido()">Enviar Pedido</button>
-    </div>
+      <form *ngIf="mostrarFormulario" class="form-envio" (ngSubmit)="enviarPedido(formPedido)" #formPedido="ngForm">
+        <input type="text" name="direccion" ngModel required placeholder="Dirección de envío"/>
+        <button type="submit" class="btn-enviar-pedido">
+          Enviar Pedido
+        </button>
+      </form>
 
-      <div *ngIf="mensajeNoRegistrado" class="mensaje-no-registrado">
-        {{ mensajeNoRegistrado }}
+
+      <div *ngIf="mensajeError" class="mensaje-error">
+        {{ mensajeError }}
       </div>
 
       <button *ngIf="!mostrarFormulario" class="btn-principal" (click)="abrirFormulario()">Proceder al Pago</button>

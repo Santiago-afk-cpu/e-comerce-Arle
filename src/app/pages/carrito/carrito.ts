@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { CarritoService, ItemCarrito } from '../../service/carrito.service';
+import { CarritoService, ItemCarrito, CarritoRequest } from '../../service/carrito.service';
 import { AuthService } from '../../service/auth.service';
-import { HttpClient } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-carrito',
@@ -16,15 +16,14 @@ import { HttpClient } from '@angular/common/http';
 export class Carrito {
   items: ItemCarrito[] = [];
   envio: number = 9.99;
-  direccion: string = ''; // <-- para el formulario de envío
-
+  direccion: string = ''; 
   mostrarFormulario: boolean = false;
-  mensajeNoRegistrado: string = ''; // <-- agrega esta propiedad
+  mensajeError: string = ''; 
+  mensajeExito: string = '';
 
   constructor(
     private carritoService: CarritoService,
     private authService: AuthService,
-    private http: HttpClient  // ✅ inyectamos HttpClient
   ) {}
 
 
@@ -55,49 +54,55 @@ export class Carrito {
   }
 
   abrirFormulario(): void {
-    const user = this.authService.currentUser; // getter público
+    const user = this.authService.currentUser; 
     if (!user) {
-      this.mensajeNoRegistrado = 'Debes iniciar sesión para realizar la compra';
+      this.mensajeError = 'Debes iniciar sesión para realizar la compra';
       return;
     }
-    this.mensajeNoRegistrado = ''; // limpiar mensaje si hay usuario
+    this.mensajeError = ''; 
     this.mostrarFormulario = true;
   }
 
 
-  enviarPedido(): void {
-    const user = this.authService.currentUser; // usuario logueado
+  enviarPedido(form: NgForm): void {
+
+    const token = localStorage.getItem('token');
+    console.log('Token guardado en localStorage:', token);
+
+    const user = this.authService.currentUser;
     if (!user) {
-      alert("Debes iniciar sesión para enviar el pedido");
+      this.mensajeError = 'Debes iniciar sesión para enviar el pedido';
       return;
     }
 
-    if (!this.direccion.trim()) {
-      alert("Debes ingresar la dirección de envío");
+    if (form.invalid) {
+      this.mensajeError = 'Debes ingresar la dirección de envío';
       return;
     }
 
-    // Construimos el objeto pedido
-    const pedido = {
+    const pedido: CarritoRequest = {
       nombreCliente: user.name,
-      direccion: this.direccion,
+      direccion: form.value.direccion,
       total: this.total
     };
 
-    // Hacemos el POST al backend
-    this.http.post('http://localhost:8080/api/v1/pedidos', pedido).subscribe({
-      next: (res) => {
-        console.log('Pedido enviado correctamente:', res);
-        this.carritoService.vaciar(); // limpiar carrito
-        this.cargarItems(); // actualizar vista
-        this.direccion = ''; // limpiar input
-        this.mostrarFormulario = false; // ocultar formulario
+    this.carritoService.enviarPedido(pedido).subscribe({
+      next: () => {
+        this.mensajeExito = 'Pedido enviado correctamente';
+        this.mensajeError = '';
+
+        this.carritoService.vaciar();
+        this.cargarItems();
+
+        form.resetForm();
+        this.mostrarFormulario = false;
+
+        setTimeout(() => this.mensajeExito = '', 3000);
       },
-      error: (err) => {
-        console.error('Error al enviar pedido:', err);
-        alert("Ocurrió un error al enviar el pedido");
+      error: () => {
+        this.mensajeError = 'Ocurrió un error al enviar el pedido';
+        this.mensajeExito = '';
       }
     });
   }
-
 }

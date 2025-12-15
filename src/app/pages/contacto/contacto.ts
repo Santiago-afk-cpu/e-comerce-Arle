@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { ContactoService } from '../../service/contacto.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -12,38 +12,33 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./contacto.css']
 })
 export class Contacto {
-  nombre = '';
-  email = '';
-  telefono = '';
-  asunto = '';
-  mensaje = '';
+
   mensajeExito = '';
+  mensajeError = '';
 
   constructor(private contactoService: ContactoService) {}
 
-  enviarMensaje(e?: Event) {
-    if (e) e.preventDefault();
+  enviarMensaje(form: NgForm) {
 
-    const data = {
-      nombre: this.nombre,
-      email: this.email,
-      telefono: this.telefono,
-      asunto: this.asunto,
-      mensaje: this.mensaje
-    };
+    if (form.invalid) {
+      this.mensajeError = "Faltan campos por llenar";
+      return;
+    }
+
+    const data = form.value;
 
     this.contactoService.enviarMensaje(data).subscribe({
       next: (res: any) => {
         console.log(res);
-        this.nombre = '';
-        this.email = '';
-        this.telefono = '';
-        this.asunto = '';
-        this.mensaje = '';
+
+        this.mensajeExito = 'Mensaje enviado correctamente';
+        this.mensajeError = '';
+
+        form.resetForm();
       },
-      error: (err) => {
+      error: (err: HttpErrorResponse) => {
         console.error(err);
-        this.mensajeExito = "Hubo un error al enviar el mensaje.";
+        this.mensajeExito = 'Hubo un error al enviar el mensaje.';
       }
     });
   }

@@ -156,12 +156,48 @@ input[type="password"] {
 }
 
 .mensaje-registro {
-  background-color: #d4edda;   /* verde claro */
-  color: #155724;              /* texto verde oscuro */
-  border: 1px solid #c3e6cb;  /* borde verde */
+  background-color: #d4edda;   
+  color: #155724;              
+  border: 1px solid #c3e6cb;  
   padding: 0.5rem 1rem;
   border-radius: 5px;
   margin-bottom: 1rem;
   text-align: center;
   font-weight: 500;
+}
+
+.mensaje-error {
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
+  color: #b02a37;
+  font-weight: 500;
+  animation: fadeIn 0.25s ease-in;
+}
+
+.mensaje-error-login {
+  margin: 0.75rem 0 1rem;
+  padding: 0.6rem 0.9rem;
+
+  background-color: #fdecea;   
+  color: #8a1c1c;
+
+  border: 1px solid #f5c2c0;
+  border-radius: 6px;
+
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+
+  animation: aparecer 0.25s ease-in-out;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

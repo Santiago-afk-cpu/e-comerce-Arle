@@ -1,13 +1,32 @@
 import { Injectable } from '@angular/core';
 import { ProductoModule } from '../module/producto.module';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface ItemCarrito {
   producto: ProductoModule;
   cantidad: number;
 }
 
-@Injectable({ providedIn: 'root' })
+export interface CarritoRequest {
+  nombreCliente: string;
+  direccion: string;
+  total: number;
+}
+
+@Injectable({ 
+  providedIn: 'root' 
+})
+
 export class CarritoService {
+
+  private readonly API_URL = 'http://localhost:8080/api/v1/pedidos';
+
+  constructor(private http: HttpClient) {}
+
+  enviarPedido(pedido: CarritoRequest): Observable<any> {
+    return this.http.post(this.API_URL, pedido);
+  }
 
   private items: ItemCarrito[] = [];
 

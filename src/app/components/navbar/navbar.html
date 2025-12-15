@@ -9,17 +9,15 @@
   </div>
 
   <div class="segundo-contenido">
-    <input type="text" placeholder="Buscar productos..." class="buscar"/>
+    <input type="text" placeholder="Buscar productos..." class="buscar" [(ngModel)]="textoBusqueda" (ngModelChange)="onBuscar()"/>
   </div>
 
   <div class="tercer-contenido">
 
-    <!-- SI NO está autenticado -->
     <a *ngIf="(authService.user$ | async) === null" routerLink="/login" class="icon-btn">
       <img src="assets/login.png" alt="">
     </a>
 
-    <!-- SI SÍ está autenticado -->
     <div *ngIf="(authService.user$ | async) as user" class="usuario-logueado">
       <i class="fa-solid fa-user"></i> {{ user.name }}
       <button class="logout-btn" (click)="logout()">Salir</button>

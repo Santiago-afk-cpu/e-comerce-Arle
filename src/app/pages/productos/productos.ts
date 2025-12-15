@@ -1,19 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductosService } from '../../service/productos.service';
+import { FormsModule } from '@angular/forms';
+import { ProductosService, Producto } from '../../service/productos.service';
 import { CarritoService } from '../../service/carrito.service';
-import { ProductoModule } from '../../module/producto.module';
+import { SearchService } from '../../service/search.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-accesorios',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './productos.html',
   styleUrls: ['./productos.css']
 })
-export class Productos implements OnInit {
+export class Productos implements OnInit, OnDestroy {
 
-  productosOriginal: ProductoModule[] = [];
-  productosFiltrados: ProductoModule[] = [];
+  textoBusqueda: string = '';
+
+  productosOriginal: Producto[] = [];
+  productosFiltrados: Producto[] = [];
 
   categorias: string[] = ['Todos', 'Balones', 'Calzado', 'Camisetas', 'Accesorios', 'Protección'];
   marcas: string[] = ['Todas', 'Nike', 'Adidas', 'Puma'];
@@ -21,25 +26,46 @@ export class Productos implements OnInit {
   filtroCategoria: string = 'Todos';
   filtroMarca: string = 'Todas';
 
+  private destroy$ = new Subject<void>();
+
   constructor(
     private productosService: ProductosService,
-    private carritoService: CarritoService
+    private carritoService: CarritoService,
+    private searchService: SearchService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    // Suscribirse al Observable para obtener los productos desde el backend
-    this.productosService.obtenerTodos().subscribe((data: ProductoModule[]) => {
-      this.productosOriginal = data;
-      this.aplicarFiltros();
+    this.productosService.obtenerTodos().subscribe({
+      next: (data) => {
+        this.productosOriginal = data;
+        this.productosFiltrados = data;
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error(err)
     });
+
+    this.searchService.search$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(texto => {
+        this.textoBusqueda = texto;
+        this.aplicarFiltros();
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   aplicarFiltros(): void {
-    this.productosFiltrados = this.productosOriginal.filter(p => {
-      const coincideCategoria = this.filtroCategoria === 'Todos' || p.categoria === this.filtroCategoria;
-      const coincideMarca = this.filtroMarca === 'Todas' || p.marca === this.filtroMarca;
-      return coincideCategoria && coincideMarca;
-    });
+    const texto = this.textoBusqueda.toLowerCase().trim();
+
+    this.productosFiltrados = this.productosOriginal.filter(p =>
+      (this.filtroCategoria === 'Todos' || p.categoria === this.filtroCategoria) &&
+      (this.filtroMarca === 'Todas' || p.marca === this.filtroMarca) &&
+      (!texto || p.nombre.toLowerCase().includes(texto))
+    );
   }
 
   cambiarCategoria(valor: string): void {
@@ -52,7 +78,7 @@ export class Productos implements OnInit {
     this.aplicarFiltros();
   }
 
-  agregarAlCarrito(producto: ProductoModule): void {
+  agregarAlCarrito(producto: Producto): void {
     this.carritoService.agregarProducto(producto);
   }
 }

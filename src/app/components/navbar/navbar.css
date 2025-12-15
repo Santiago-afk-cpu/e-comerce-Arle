@@ -105,17 +105,17 @@
 }
 
 .logout-btn {
-  background-color: #444b52; /* azul vivo */
-  border: none;              /* quitar borde */
-  color: #fff;               /* texto blanco */
-  padding: 6px 12px;         /* un poco más grande */
-  border-radius: 6px;        /* esquinas redondeadas */
+  background-color: #444b52; 
+  border: none;              
+  color: #fff;               
+  padding: 6px 12px;         
+  border-radius: 6px;        
   cursor: pointer;
-  font-weight: 500;          /* texto un poco más grueso */
-  transition: background 0.3s ease; /* efecto suave al pasar el mouse */
+  font-weight: 500;          
+  transition: background 0.3s ease; 
 }
 
 .logout-btn:hover {
-  background-color: #8e9092; /* azul más oscuro al pasar el mouse */
+  background-color: #8e9092; 
 }
 
